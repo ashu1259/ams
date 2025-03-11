@@ -30,23 +30,4 @@ def add_attendance():
     db.session.commit()
     return jsonify({'message': 'Attendance added successfully'}), 201
 
-# Update attendance log
-@api_bp.route('/attendance/<int:id>', methods=['PUT'])
-def update_attendance(id):
-    log = AttendanceLog.query.get(id)
-    if not log:
-        return jsonify({'message': 'Log not found'}), 404
-    data = request.get_json()
-    log.status = data.get('status', log.status)
-    db.session.commit()
-    return jsonify({'message': 'Attendance updated successfully'})
 
-# Delete attendance log
-@api_bp.route('/attendance/<int:id>', methods=['DELETE'])
-def delete_attendance(id):
-    log = AttendanceLog.query.get(id)
-    if not log:
-        return jsonify({'message': 'Log not found'}), 404
-    db.session.delete(log)
-    db.session.commit()
-    return jsonify({'message': 'Attendance deleted successfully'})
